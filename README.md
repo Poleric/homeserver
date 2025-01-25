@@ -25,13 +25,17 @@ All of the services are dockerized.
    ```bash
    pip install ansible
    ```
+   
 2. Install requirements.
    ```bash
    ansible-galaxy install -r requirements.yml
    ```
+   
 3. Configure the variables in `./group_vars/all` and `./inventory/production.yml`.
+
    > Read [group_vars/README.md](group_vars/README.md) and [inventory/README.md](inventory/README.md) for documentation
    on the usage and description of each of the variables.
+
 4. Run the playbook.
    ```bash
    ansible-playbook main.yml -i inventory/production.yml
