@@ -19,20 +19,34 @@
         build: never
     become: false
 
-#-   name: Ensure resolveconf exists.
-#    ansible.builtin.file:
-#        path: "/etc/resolvconf.conf"
-#        state: touch
-#        mode: "744"
-#
-#-   name: Update resolveconf for local name server use.
-#    ansible.builtin.lineinfile:
-#        line: "name_servers=127.0.0.1"
-#        dest: "/etc/resolvconf.conf"
-#        regexp: "^#?name_servers="
-#    register: resolvconf_file
-#
-#-   name: Regenerate resolvconf if file is changed.
-#    ansible.builtin.command: resolvconf -u
-#    changed_when: false
-#    when: resolvconf_file is changed
+-   name: Ensure resolveconf exists.
+    ansible.builtin.file:
+        path: "/etc/resolvconf.conf"
+        state: touch
+        mode: "744"
+
+-   name: Update resolveconf for local name server use.
+    ansible.builtin.lineinfile:
+        line: "name_servers=127.0.0.1"
+        dest: "/etc/resolvconf.conf"
+        regexp: "^#?name_servers="
+    register: resolvconf_file
+
+-   name: Ensure resolvconf is installed. (Debian)
+    ansible.builtin.apt:
+        name:
+            - resolvconf
+        state: present
+    when: ansible_facts.os_family == "Debian"
+
+-   name: Ensure resolvconf is installed. (Arch)
+    community.general.pacman:
+        name:
+            - openresolv
+        state: present
+    when: ansible_facts.os_family == "Archlinux"
+
+-   name: Regenerate resolvconf if file is changed.
+    ansible.builtin.command: resolvconf -u
+    changed_when: false
+    when: resolvconf_file is changed
