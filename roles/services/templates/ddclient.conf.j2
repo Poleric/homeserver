@@ -1,0 +1,12 @@
+daemon=300
+usev4=webv4, webv4=ipv4.icanhazip.com
+
+# Protocols
+{% for protocol in ddclient.protocols %}
+protocol={{ protocol.type }}
+{% for key, value in protocol.params.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{{ protocol.hosts | join(",") }}
+
+{% endfor %}

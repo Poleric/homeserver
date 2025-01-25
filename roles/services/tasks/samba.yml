@@ -1,0 +1,20 @@
+-   name: Create Samba folder
+    ansible.builtin.file:
+        path: "{{ samba.work_dir }}"
+        state: directory
+        mode: 0755
+    become: false
+
+-   name: Copy Samba docker-compose template
+    ansible.builtin.template:
+        src: templates/samba-docker-compose.yml.j2
+        dest: "{{ samba.work_dir }}/docker-compose.yml"
+        mode: 0640
+    become: false
+    notify: Restart Samba
+
+-   name: Ensure Samba is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ samba.work_dir }}/"
+        build: never
+    become: false

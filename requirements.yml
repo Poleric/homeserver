@@ -1,0 +1,9 @@
+collections:
+    - community.docker
+
+roles:
+    - name: geerlingguy.security
+    - name: geerlingguy.firewall
+    - name: geerlingguy.git
+    - name: geerlingguy.pip
+    - name: geerlingguy.docker

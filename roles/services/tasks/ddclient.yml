@@ -1,0 +1,26 @@
+-   name: Create ddclient folder
+    ansible.builtin.file:
+        path: "{{ ddclient.work_dir }}"
+        state: directory
+        mode: 0755
+    become: false
+
+-   name: Copy ddclient.conf template
+    ansible.builtin.template:
+        src: templates/ddclient.conf.j2
+        dest: "{{ ddclient.work_dir }}/ddclient.conf"
+    become: false
+
+-   name: Copy ddclient docker-compose template
+    ansible.builtin.template:
+        src: templates/ddclient-docker-compose.yml.j2
+        dest: "{{ ddclient.work_dir }}/docker-compose.yml"
+        mode: 0640
+    become: false
+    notify: Restart ddclient
+
+-   name: Ensure ddclient is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ ddclient.work_dir }}/"
+        build: never
+    become: false

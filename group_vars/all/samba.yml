@@ -1,0 +1,22 @@
+samba:
+    enabled: true
+    users:
+        -   username: nas
+            password: nas
+            uid: 1000
+            gid: 1000
+    config:
+        -   name: nas
+            config: |
+                [nas]
+                path = /shares
+                available = yes
+                browsable = yes
+                writable = yes
+                read only = no
+                valid users = nas
+                public = no
+                guest ok = no
+    mount:
+        -   src: /mnt/ssd
+            dst: /shares

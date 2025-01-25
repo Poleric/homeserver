@@ -1,0 +1,32 @@
+services:
+    pihole:
+        image: pihole/pihole:latest
+        container_name: pihole
+        restart: unless-stopped
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+        environment:
+            TZ: "{{ pihole.timezone }}"
+            WEBPASSWORD: "{{ pihole.password }}"
+            VIRTUAL_HOST: "{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }}"
+            VIRTUAL_PORT: 80
+            PROXY_LOCATION: "{{ pihole.proxy.hostname }}"
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - ./etc-pihole:/etc/pihole
+            - ./etc-dnsmasq.d:/etc/dnsmasq.d
+        dns:
+            - 127.0.0.1
+            - 8.8.8.8
+        extra_hosts:
+{% if "." in reverse_proxy.domain.name %}
+            - "{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
+{% endif %}
+            - "{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true

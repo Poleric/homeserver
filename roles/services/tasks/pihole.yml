@@ -1,0 +1,38 @@
+-   name: Create Pihole folder
+    ansible.builtin.file:
+        path: "{{ pihole.work_dir }}"
+        state: directory
+        mode: 0755
+    become: false
+
+-   name: Copy Pihole docker-compose template
+    ansible.builtin.template:
+        src: templates/pihole-docker-compose.yml.j2
+        dest: "{{ pihole.work_dir }}/docker-compose.yml"
+        mode: 0640
+    become: false
+    notify: Restart Pihole
+
+-   name: Ensure Pihole is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ pihole.work_dir }}/"
+        build: never
+    become: false
+
+#-   name: Ensure resolveconf exists.
+#    ansible.builtin.file:
+#        path: "/etc/resolvconf.conf"
+#        state: touch
+#        mode: "744"
+#
+#-   name: Update resolveconf for local name server use.
+#    ansible.builtin.lineinfile:
+#        line: "name_servers=127.0.0.1"
+#        dest: "/etc/resolvconf.conf"
+#        regexp: "^#?name_servers="
+#    register: resolvconf_file
+#
+#-   name: Regenerate resolvconf if file is changed.
+#    ansible.builtin.command: resolvconf -u
+#    changed_when: false
+#    when: resolvconf_file is changed

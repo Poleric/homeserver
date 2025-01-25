@@ -1,0 +1,5 @@
+{% if pihole.enabled %}
+http://{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+    reverse_proxy pihole:80
+}
+{% endif %}

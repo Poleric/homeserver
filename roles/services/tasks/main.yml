@@ -1,0 +1,15 @@
+-   include_tasks: reverse_proxy.yml
+-   include_tasks: ddclient.yml
+    when: ddclient.enabled
+-   include_tasks: deluge.yml
+    when: deluge.enabled
+-   include_tasks: jackett.yml
+    when: jackett.enabled
+-   include_tasks: jellyfin.yml
+    when: jellyfin.enabled
+-   include_tasks: pihole.yml
+    when: pihole.enabled
+-   include_tasks: samba.yml
+    when: samba.enabled
+-   include_tasks: vaultwarden.yml
+    when: vaultwarden.enabled

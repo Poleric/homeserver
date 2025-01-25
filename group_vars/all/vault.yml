@@ -1,0 +1,6 @@
+vault:
+    pihole:
+        password: <password>
+
+    ddclient:
+        cloudflare_token: <token>

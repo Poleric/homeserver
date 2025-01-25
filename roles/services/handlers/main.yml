@@ -1,0 +1,27 @@
+-   name: Restart Caddy
+    community.docker.docker_compose_v2:
+        project_src: "{{ reverse_proxy.work_dir }}/"
+        build: never
+        state: restarted
+    become: false
+
+-   name: Restart ddclient
+    community.docker.docker_compose_v2:
+        project_src: "{{ ddclient.work_dir }}/"
+        build: never
+        state: restarted
+    become: false
+
+-   name: Restart Pihole
+    community.docker.docker_compose_v2:
+        project_src: "{{ pihole.work_dir }}/"
+        build: never
+        state: restarted
+    become: false
+
+-   name: Restart Samba
+    community.docker.docker_compose_v2:
+        project_src: "{{ samba.work_dir }}/"
+        build: never
+        state: restarted
+    become: false

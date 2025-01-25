@@ -1,0 +1,11 @@
+-   name: Runs everything on the home server.
+    hosts: homeserver
+    #    become: true
+
+    roles:
+#        - geerlingguy.security
+#        - geerlingguy.firewall
+#        - geerlingguy.git
+#        - geerlingguy.pip
+#        - geerlingguy.docker
+        - role: services

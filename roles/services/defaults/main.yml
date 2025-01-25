@@ -1,0 +1,75 @@
+work_dir: "~"
+services_dir: "{{ work_dir }}/services"
+
+reverse_proxy:
+    work_dir: "{{ services_dir }}/caddy"
+    domain:
+        name: "box"
+
+ddclient:
+    enabled: false
+    work_dir: "{{ services_dir }}/ddclient"
+
+    uid: 1000
+    gid: 1000
+    timezone: "Etc/UTC"
+    protocols:
+        -   type: "cloudflare"
+            params:
+                zone: example.tld
+                ttl: 1
+                password: <password>
+            hosts:
+                - example.tld
+
+deluge:
+    enabled: false
+    work_dir: "{{ services_dir }}/deluge"
+
+jackett:
+    enabled: false
+    work_dir: "{{ services_dir }}/jackett"
+
+jellyfin:
+    enabled: false
+    work_dir: "{{ services_dir }}/jellyfin"
+
+pihole:
+    enabled: false
+    work_dir: "{{ services_dir }}/pihole"
+    proxy:
+        hostname: "pihole"
+
+    timezone: "Etc/UTC"
+    password: <password>
+
+samba:
+    enabled: false
+    work_dir: "{{ services_dir }}/samba"
+
+    users:
+        -   username: <username>
+            password: <password>
+            uid: 1000
+            gid: 1000
+    config:
+        -   name: share
+            config: |
+                [share]
+                path = /shares
+                available = yes
+                browsable = yes
+                writable = yes
+                read only = no
+                valid users = <username>
+                public = no
+                guest ok = no
+    mount:
+        -   src: /home
+            dst: /shares
+
+vaultwarden:
+    enabled: false
+    work_dir: "{{ services_dir }}/vaultwarden"
+
+
