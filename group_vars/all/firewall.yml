@@ -1,6 +1,6 @@
 firewall_allowed_tcp_ports:
     - "22"
-    - "53"
+    - "53"   # dns
     - "80"
     - "443"
     - "445"  # samba

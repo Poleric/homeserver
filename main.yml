@@ -8,4 +8,4 @@
         - geerlingguy.git
         - geerlingguy.pip
         - geerlingguy.docker
-        - role: services
+        - services
