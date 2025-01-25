@@ -7,7 +7,7 @@
 
 -   name: Copy Vaultwarden docker-compose template
     ansible.builtin.template:
-        src: templates/vaultwarden-docker-compose.yml.j2
+        src: templates/vaultwarden/docker-compose.yml.j2
         dest: "{{ vaultwarden.work_dir }}/docker-compose.yml"
         mode: 0640
     become: false
