@@ -1,0 +1,16 @@
+services:
+    homer:
+        image: b4bz/homer
+        container_name: homer
+        restart: unless-stopped
+        environment:
+            INIT_ASSETS: 1
+            PORT: 80
+        volumes:
+            - ./assets:/www/assets
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true

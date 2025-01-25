@@ -3,8 +3,8 @@
     when: ddclient.enabled
 -   include_tasks: deluge.yml
     when: deluge.enabled
--   include_tasks: jackett.yml
-    when: jackett.enabled
+-   include_tasks: homer.yml
+    when: homer.enabled
 -   include_tasks: jellyfin.yml
     when: jellyfin.enabled
 -   include_tasks: pihole.yml

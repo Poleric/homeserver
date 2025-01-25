@@ -26,6 +26,10 @@ deluge:
     enabled: false
     work_dir: "{{ services_dir }}/deluge"
 
+homer:
+    enabled: false
+    work_dir: "{{ services_dir }}/homer"
+
 jackett:
     enabled: false
     work_dir: "{{ services_dir }}/jackett"

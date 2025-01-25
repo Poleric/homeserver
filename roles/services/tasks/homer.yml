@@ -1,0 +1,33 @@
+-   name: Create Homer folder
+    ansible.builtin.file:
+        path: "{{ homer.work_dir }}"
+        state: directory
+        mode: 0755
+    become: false
+
+-   name: Copy Homer assets
+    ansible.builtin.copy:
+        src: templates/homer-assets
+        dest: "{{ homer.work_dir }}/assets"
+    become: false
+
+-   name: Copy Homer config template
+    ansible.builtin.template:
+        src: templates/homer-config.yml.j2
+        dest: "{{ homer.work_dir }}/assets/config.yml"
+    become: false
+    notify: Restart Homer
+
+-   name: Copy Homer docker-compose template
+    ansible.builtin.template:
+        src: templates/homer-docker-compose.yml.j2
+        dest: "{{ homer.work_dir }}/docker-compose.yml"
+        mode: 0640
+    become: false
+    notify: Restart Homer
+
+-   name: Ensure Homer is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ homer.work_dir }}/"
+        build: never
+    become: false

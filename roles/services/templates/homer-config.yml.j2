@@ -1,0 +1,50 @@
+# https://github.com/bastienwirtz/homer/blob/main/docs/configuration.md
+title: "App dashboard"
+subtitle: "Homer"
+
+columns: 3
+connectivityCheck: true
+
+defaults:
+    layout: columns
+    colorTheme: auto
+
+theme: default
+
+stylesheet:
+    - "assets/catppuccin-macchiato.css"
+
+services:
+    -   name: "Media"
+        icon: "fas fa-photo-film"
+        items:
+{% if deluge.enabled %}
+            -   name: "Deluge"
+                logo: "assets/images/deluge.svg"
+                url: "https://{{ deluge.proxy.hostname }}.{{ reverse_proxy.domain.name }}"
+                target: "_blank"
+{% endif %}
+{% if jellyfin.enabled %}
+            -   name: "Jellyfin"
+                logo: "assets/images/jellyfin.svg"
+                url: "https://{{ jellyfin.proxy.hostname }}.{{ reverse_proxy.domain.name }}"
+                target: "_blank"
+{% endif %}
+    -   name: "Services"
+        icon: "fas fa-chart-simple"
+        items:
+{% if vaultwarden.enabled %}
+            -   name: "Bitwarden"
+                logo: "assets/images/bitwarden.svg"
+                url: "https://{{ vaultwarden.proxy.hostname }}.{{ reverse_proxy.domain.name }}"
+                target: "_blank"
+{% endif %}
+    -   name: "System"
+        icon: "fas fa-gear"
+        items:
+{% if pihole.enabled %}
+            -   name: "Pi-hole"
+                logo: "assets/images/pihole.png"
+                url: "https://{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }}/admin"
+                target: "_blank"
+{% endif %}
