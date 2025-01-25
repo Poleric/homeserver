@@ -29,6 +29,8 @@ deluge:
 homer:
     enabled: false
     work_dir: "{{ services_dir }}/homer"
+    proxy:
+        hostname: "homer"
 
 jackett:
     enabled: false

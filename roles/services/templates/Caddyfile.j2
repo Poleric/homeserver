@@ -6,6 +6,16 @@
     }
 }
 
+{% if homer.enabled %}
+{{ homer.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+    tls internal
+
+    encode zstd gzip
+
+    reverse_proxy homer:80
+}
+{% endif %}
+
 {% if pihole.enabled %}
 {{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
     tls internal
