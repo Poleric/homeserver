@@ -10,6 +10,7 @@
         src: templates/Caddyfile.j2
         dest: "{{ reverse_proxy.work_dir }}/Caddyfile"
     become: false
+    notify: Restart Caddy
 
 -   name: Copy Caddy docker-compose template
     ansible.builtin.template:

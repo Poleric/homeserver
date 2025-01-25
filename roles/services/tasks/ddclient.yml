@@ -10,6 +10,7 @@
         src: templates/ddclient.conf.j2
         dest: "{{ ddclient.work_dir }}/ddclient.conf"
     become: false
+    notify: Restart ddclient
 
 -   name: Copy ddclient docker-compose template
     ansible.builtin.template:
