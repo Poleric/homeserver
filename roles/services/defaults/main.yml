@@ -25,6 +25,8 @@ ddclient:
 deluge:
     enabled: false
     work_dir: "{{ services_dir }}/deluge"
+    proxy:
+        hostname: "deluge"
 
 homer:
     enabled: false
@@ -32,13 +34,11 @@ homer:
     proxy:
         hostname: "homer"
 
-jackett:
-    enabled: false
-    work_dir: "{{ services_dir }}/jackett"
-
 jellyfin:
     enabled: false
     work_dir: "{{ services_dir }}/jellyfin"
+    proxy:
+        hostname: "jellyfin"
 
 pihole:
     enabled: false
