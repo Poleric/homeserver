@@ -7,13 +7,13 @@
 
 -   name: Copy Homer assets
     ansible.builtin.copy:
-        src: templates/homer/assets/
+        src: files/homer/assets/
         dest: "{{ homer.work_dir }}/assets/"
     become: false
 
 -   name: Copy Homer config template
     ansible.builtin.template:
-        src: templates/homer/config.yml.j2
+        src: templates/homer/assets/config.yml.j2
         dest: "{{ homer.work_dir }}/assets/config.yml"
     become: false
     notify: Restart Homer
