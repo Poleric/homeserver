@@ -25,3 +25,10 @@
         build: never
         state: restarted
     become: false
+
+-   name: Restart Vaultwarden
+    community.docker.docker_compose_v2:
+        project_src: "{{ vaultwarden.work_dir }}/"
+        build: never
+        state: restarted
+    become: false

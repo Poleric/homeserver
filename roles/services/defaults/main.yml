@@ -71,5 +71,6 @@ samba:
 vaultwarden:
     enabled: false
     work_dir: "{{ services_dir }}/vaultwarden"
-
+    proxy:
+        hostname: "vaultwarden"
 
