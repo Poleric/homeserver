@@ -14,10 +14,9 @@ All of the services are dockerized.
 - [x] [ddclient](https://ddclient.net/) - IP updates
 - [x] [Caddy](https://caddyserver.com/) - Reverse proxy
 - [ ] [Deluge](https://deluge-torrent.org/) - BitTorrent client
-- [ ] [Jackett](https://github.com/Jackett/Jackett) - Torrent trackers browser
 - [ ] [Jellyfin](https://jellyfin.org/) - Media server
-- [ ] [Vaultwarden](https://github.com/dani-garcia/vaultwarden) - Password manager
-- [ ] [Homer](https://github.com/bastienwirtz/homer) - Home server homepage
+- [x] [Vaultwarden](https://github.com/dani-garcia/vaultwarden) - Password manager
+- [x] [Homer](https://github.com/bastienwirtz/homer) - Home server homepage
 
 ## Setup
 
