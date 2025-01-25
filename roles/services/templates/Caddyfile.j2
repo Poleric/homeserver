@@ -1,5 +1,29 @@
+{
+    log default {
+        output stdout
+        format console
+        level INFO
+    }
+}
+
 {% if pihole.enabled %}
-http://{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+    tls internal
+
+    encode zstd gzip
+
     reverse_proxy pihole:80
+}
+{% endif %}
+
+{% if vaultwarden.enabled %}
+{{ vaultwarden.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+    tls internal
+
+    encode zstd gzip
+
+    reverse_proxy vaultwarden:80 {
+        header_up X-Real-IP {remote_host}
+    }
 }
 {% endif %}

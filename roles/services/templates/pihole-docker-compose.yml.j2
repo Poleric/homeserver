@@ -24,6 +24,9 @@ services:
             - "{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
 {% endif %}
             - "{{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
+{% if vaultwarden.enabled %}
+            - "{{ vaultwarden.proxy.hostname }}.{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
+{% endif %}
         networks:
             - reverse-proxy
 
