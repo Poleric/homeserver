@@ -7,8 +7,8 @@
 
 -   name: Copy Homer assets
     ansible.builtin.copy:
-        src: templates/homer-assets
-        dest: "{{ homer.work_dir }}/assets"
+        src: templates/homer-assets/
+        dest: "{{ homer.work_dir }}/assets/"
     become: false
 
 -   name: Copy Homer config template
