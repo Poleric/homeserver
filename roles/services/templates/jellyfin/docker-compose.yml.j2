@@ -5,7 +5,7 @@ services:
         restart: unless-stopped
         environment:
             TZ: "{{ timezone }}"
-            PUID: "{{ jellyfin.id }}"
+            PUID: "{{ jellyfin.uid }}"
             PGID: "{{ jellyfin.gid }}"
         volumes:
             - ./config:/config
