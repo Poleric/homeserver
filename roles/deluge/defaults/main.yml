@@ -1,0 +1,21 @@
+deluge:
+    enabled: false
+
+    docker:
+        container:
+            name: "deluge"
+        image:
+            name: "lscr.io/linuxserver/deluge"
+            version: "latest"
+
+    proxy:
+        domain: "deluge.{{ root.proxy.domain }}"
+        local_only: true
+
+    config:
+        directory: "{{ root.config.directory }}/deluge"
+
+        downloads_directory: "{{ root.config.directory }}/deluge/downloads"
+        extra_mounts:
+            -   src: ~
+                dest: ~

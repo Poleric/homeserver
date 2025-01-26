@@ -1,0 +1,28 @@
+services:
+    deluge:
+        image: "{{ deluge.image.name }}:{{ deluge.docker.image.version }}"
+        container_name: "{{ deluge.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+            PUID: "{{ root.uid }}"
+            PGID: "{{ root.gid }}"
+            TZ: "{{ root.timezone }}"
+        volumes:
+            - ./config:/config
+            - "{{ deluge.config.downloads_directory }}:/downloads"
+{% for mount in deluge.config.extra_mounts %}
+            - "{{ mount.src }}:{{ mount.dest }}"
+{% endfor %}
+        networks:
+            - reverse-proxy
+        labels:
+            caddy: "{{ deluge.proxy.domain }}"
+{%  if deluge.proxy.local_only %}
+            caddy.@denied.not: "remote_ip private_ranges"
+            caddy.abort: "@denied"
+{% endif %}
+            caddy.reverse_proxy: {% raw %} "{{ upstreams 8112 }}" {% endraw %}
+
+networks:
+    reverse-proxy:
+        external: true

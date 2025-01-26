@@ -1,0 +1,26 @@
+-   name: Create Deluge directories
+    ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+    with_items:
+        - "{{ deluge.config.directory }}"
+
+-   name: Copy Deluge docker-compose template
+    ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ deluge.config.directory }}/docker-compose.yml"
+    notify: Restart Deluge
+    when: deluge.enabled
+
+-   name: Ensure Deluge is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ deluge.config.directory }}/"
+        build: never
+    when: deluge.enabled
+
+-   name: Stop Deluge
+    community.docker.docker_compose_v2:
+        project_src: "{{ deluge.config.directory }}/"
+        build: never
+        state: absent
+    when: not deluge.enabled
