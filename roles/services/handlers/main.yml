@@ -26,6 +26,13 @@
         state: restarted
     become: false
 
+-   name: Restart Jellyfin
+    community.docker.docker_compose_v2:
+        project_src: "{{ jellyfin.work_dir }}/"
+        build: never
+        state: restarted
+    become: false
+
 -   name: Restart Pihole
     community.docker.docker_compose_v2:
         project_src: "{{ pihole.work_dir }}/"

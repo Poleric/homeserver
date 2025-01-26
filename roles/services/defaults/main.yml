@@ -53,6 +53,34 @@ jellyfin:
         hostname: "jellyfin"
         local: true
 
+    timezone: "{{ timezone }}"
+    uid: 1000
+    gid: 1000
+
+    movies:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
+    music:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
+    photos:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
+    tv:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
+    books:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
+    audiobooks:
+        directory: "/home/{{ ansible_user }}"
+        permissions: "rw"
+
 pihole:
     enabled: false
     work_dir: "{{ services_dir }}/pihole"
