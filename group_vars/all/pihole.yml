@@ -1,4 +1,0 @@
-pihole:
-    enabled: true
-    timezone: "{{ timezone }}"
-    password: "{{ vault.pihole.password }}"
