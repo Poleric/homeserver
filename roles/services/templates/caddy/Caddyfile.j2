@@ -36,6 +36,21 @@
 }
 {% endif %}
 
+{% if jellyfin.enabled %}
+{{ jellyfin.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{% if jellyfin.proxy.local %}
+    @denied not remote_ip private_ranges
+    abort @denied
+{% endif %}
+
+    tls internal
+
+    encode zstd gzip
+
+    reverse_proxy jellyfin:80
+}
+{% endif %}
+
 {% if pihole.enabled %}
 {{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
 {% if pihole.proxy.local %}
