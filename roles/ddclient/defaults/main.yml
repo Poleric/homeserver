@@ -1,0 +1,31 @@
+ddclient:
+    enabled: false
+
+    docker:
+        container:
+            name: "ddclient"
+        image:
+            name: "lscr.io/linuxserver/ddclient"
+            version: "latest"
+
+    config:
+        directory: "{{ root.config.directory }}/ddclient"
+
+        poll_seconds: 300
+
+        #  https://ddclient.net/protocols.html
+        protocols:
+            -   protocol: cloudflare
+                params:  # params key and values are directly added into the protocol config
+                    zone: example.tld
+                    ttl: 1
+                    password: ~
+                hosts:
+                    - example.tld
+                    - name.example.tld
+                #  The above configuration would result in the following config
+                #  protocol=cloudflare
+                #  zone=example.tld
+                #  ttl=1
+                #  password=...
+                #  example.tld,name.example.tld

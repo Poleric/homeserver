@@ -1,0 +1,11 @@
+services:
+    ddclient:
+        image: "{{ ddclient.docker.image.name }}:{{ ddclient.docker.image.version }}"
+        container_name: "{{ ddclient.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+            PUID: {{ root.uid }}
+            PGID: {{ root.gid }}
+            TZ: {{ root.timezone }}
+        volumes:
+            - ./ddclient.conf:/config/ddclient.conf

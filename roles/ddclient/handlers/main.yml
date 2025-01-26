@@ -1,0 +1,6 @@
+-   name: Restart ddclient
+    community.docker.docker_compose_v2:
+        project_src: "{{ ddclient.config.directory }}/"
+        build: never
+        state: restarted
+    when: ddclient.enabled
