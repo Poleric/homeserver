@@ -22,6 +22,13 @@ services:
             caddy.abort: "@denied"
 {% endif %}
             caddy.reverse_proxy: "{{ '{{' }} upstreams {{ deluge.proxy.port }} {{ '}}' }}"
+            homepage.group: Media
+            homepage.name: Deluge
+            homepage.icon: deluge.png
+            homepage.href: "https://{{ deluge.proxy.hostname }}.{{ root.proxy.domain }}"
+            homepage.description: BitTorrent client
+            homepage.widget.type: deluge
+            homepage.widget.url: "https://{{ deluge.proxy.hostname }}.{{ root.proxy.domain }}"
 
 networks:
     reverse-proxy:

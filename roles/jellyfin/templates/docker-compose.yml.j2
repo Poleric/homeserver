@@ -24,6 +24,15 @@ services:
             caddy.abort: "@denied"
 {% endif %}
             caddy.reverse_proxy: "{{ '{{' }} upstreams {{ jellyfin.proxy.port }} {{ '}}' }}"
+            homepage.group: Media
+            homepage.name: Jellyfin
+            homepage.icon: jellyfin.png
+            homepage.href: "https://{{ jellyfin.proxy.hostname }}.{{ root.proxy.domain }}"
+            homepage.description: Media server
+            homepage.widget.type: jellyfin
+            homepage.widget.url: "https://{{ jellyfin.proxy.hostname }}.{{ root.proxy.domain }}"
+            homepage.widget.enableBlocks: "true"
+            homepage.widget.enableNowPlaying: "true"
 
 networks:
     reverse-proxy:

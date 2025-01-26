@@ -17,6 +17,8 @@ services:
         labels:
             caddy.email: "{{ root.email }}"
             caddy.acme_dns: "cloudflare {{ caddy.config.cloudflare_token }}"
+            homepage.widget.type: caddy
+            homepage.widget.url: "https://{{ root.proxy.domain }}"
 
 networks:
     default:

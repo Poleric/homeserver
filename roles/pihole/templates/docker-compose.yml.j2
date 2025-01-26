@@ -37,6 +37,13 @@ services:
             caddy.abort: "@denied"
 {% endif %}
             caddy.reverse_proxy: "{{ '{{' }} upstreams {{ pihole.proxy.port }} {{ '}}' }}"
+            homepage.group: System
+            homepage.name: Pi-hole
+            homepage.icon: pihole.png
+            homepage.href: "https://{{ pihole.proxy.hostname }}.{{ root.proxy.domain }}/admin"
+            homepage.description: DNS Blocker
+            homepage.widget.type: pihole
+            homepage.widget.url: "https://{{ pihole.proxy.hostname }}.{{ root.proxy.domain }}"
 
 networks:
     reverse-proxy:
