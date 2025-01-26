@@ -1,0 +1,22 @@
+services:
+    caddy:
+        image: "{{ caddy.docker.image.name }}:{{ caddy.docker.image.version }}"
+        container_name: "{{ caddy.docker.container.name }}"
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+            - "443:443/udp"
+        environment:
+            TZ: "{{ root.timezone }}"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./caddy-data:/data
+            - ./caddy-config:/config
+        labels:
+            caddy.email: "{{ root.email }}"
+            caddy.acme_dns: "cloudflare {{ caddy.config.cloudflare_token }}"
+
+networks:
+    default:
+        name: reverse-proxy

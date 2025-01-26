@@ -1,0 +1,17 @@
+-   name: Create Caddy directories
+    ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+    with_items:
+        - "{{ caddy.config.directory }}"
+
+-   name: Copy Caddy docker-compose template
+    ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ caddy.config.directory }}/docker-compose.yml"
+    notify: Restart Caddy
+
+-   name: Ensure Caddy is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ caddy.config.directory }}/"
+        build: never

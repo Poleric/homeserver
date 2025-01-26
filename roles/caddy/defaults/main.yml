@@ -1,0 +1,12 @@
+caddy:
+    docker:
+        container:
+            name: "caddy"
+        image:
+            name: "homeall/caddy-reverse-proxy-cloudflare"
+            version: "latest"
+
+    config:
+        directory: "{{ root.config.directory }}/caddy"
+
+        cloudflare_token: ~
