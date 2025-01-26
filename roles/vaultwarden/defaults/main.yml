@@ -1,0 +1,19 @@
+vaultwarden:
+    enabled: false
+
+    docker:
+        container:
+            name: "vaultwarden"
+        image:
+            name: "vaultwarden/server"
+            version: "latest"
+
+    proxy:
+        hostname: "vaultwarden"
+        port: 80
+        local_only: true
+
+    config:
+        directory: "{{ root.config.directory }}/vaultwarden"
+
+        signup_allowed: true

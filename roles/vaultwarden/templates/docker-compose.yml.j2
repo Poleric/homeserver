@@ -1,0 +1,26 @@
+services:
+    vaultwarden:
+        image: "{{ vaultwarden.image.name }}:{{ vaultwarden.docker.image.version }}"
+        container_name: "{{ vaultwarden.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+            DOMAIN: "https://{{ vaultwarden.proxy.hostname }}.{{ root.proxy.domain }}"
+            SIGNUP_ALLOWED: {{ vaultwarden.config.signup_allowed }}
+            ENABLE_WEBSOCKET: true
+        volumes:
+            - ./vw-data:/data
+        networks:
+            - reverse-proxy
+        labels:
+            caddy: "{{ vaultwarden.proxy.hostname }}.{{ root.proxy.domain }}"
+{%  if vaultwarden.proxy.local_only %}
+            caddy.@denied.not: "remote_ip private_ranges"
+            caddy.abort: "@denied"
+{% endif %}
+            caddy.0_reverse_proxy: "/notifications/hub/negotiate {{ '{{' }} upstreams {{ vaultwarden.proxy.port }} {{ '}}' }}"
+            caddy.1_reverse_proxy: {% raw %} "/notifications/hub {{ upstreams 3012 }}" {% endraw %}
+            caddy.2_reverse_proxy: "{{ '{{' }} upstreams {{ vaultwarden.proxy.port }} {{ '}}' }}"
+
+networks:
+    reverse-proxy:
+        external: true

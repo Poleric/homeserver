@@ -1,0 +1,6 @@
+-   name: Restart Vaultwarden
+    community.docker.docker_compose_v2:
+        project_src: "{{ vaultwarden.config.directory }}/"
+        build: never
+        state: restarted
+    when: vaultwarden.enabled
