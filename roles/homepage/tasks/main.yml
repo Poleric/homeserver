@@ -7,6 +7,14 @@
             with_items:
                 - "{{ homepage.config.directory }}"
 
+        -   name: Copy Homepage config templates
+            ansible.builtin.template:
+                src: "{{ item }}"
+                dest: "{{ homepage.config.directory }}/config/{{ item.path | basename | trim('.j2') }}"
+            with_fileglob:
+                - "templates/config/*.yml.j2"
+            notify: Restart Homepage
+
         -   name: Copy Homepage docker-compose template
             ansible.builtin.template:
                 src: templates/docker-compose.yml.j2

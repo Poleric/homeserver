@@ -15,3 +15,17 @@ homepage:
 
     config:
         directory: "{{ root.config.directory }}/homepage"
+
+        settings:  # Settings config as https://gethomepage.dev/configs/settings/#title
+            title: "Homeserver"
+            language: "{{ root.locale }}"
+            showStats: true
+
+        bookmarks:
+            ~
+
+        services:
+            ~
+
+        widgets:
+            ~

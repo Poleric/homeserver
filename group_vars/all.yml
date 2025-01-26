@@ -4,6 +4,7 @@ root:
 
     email: email@example.com
     timezone: "Etc/UTC"
+    locale: "en_US"
 
     proxy:
         domain: "home.local"
@@ -84,6 +85,21 @@ homepage:
     proxy:
         hostname: "homepage"
         local_only: true  # is a bad idea to set to false
+
+    config:
+        settings:  # Settings config as https://gethomepage.dev/configs/settings/#title
+            title: "Homeserver"
+            language: "{{ root.locale }}"
+            showStats: true
+
+        bookmarks:
+            ~
+
+        services:
+            ~
+
+        widgets:
+            ~
 
 jellyfin:
     enabled: false
