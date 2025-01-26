@@ -1,0 +1,12 @@
+root:
+    uid: 1000
+    gid: 1000
+
+    email: email@example.com
+    timezone: "Etc/UTC"
+
+    proxy:
+        domain: "home.local"
+
+    config:
+        directory: "."
