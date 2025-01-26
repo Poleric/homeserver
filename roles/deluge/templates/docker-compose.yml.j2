@@ -9,7 +9,7 @@ services:
             TZ: "{{ root.timezone }}"
         volumes:
             - ./config:/config
-            - "{{ deluge.config.downloads_directory }}:/downloads"
+            - "{{ root.config.torrents.directory }}:/downloads"
 {% for mount in deluge.config.extra_mounts %}
             - "{{ mount.src }}:{{ mount.dest }}"
 {% endfor %}

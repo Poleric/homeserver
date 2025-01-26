@@ -16,7 +16,6 @@ deluge:
     config:
         directory: "{{ root.config.directory }}/deluge"
 
-        downloads_directory: "{{ root.config.directory }}/deluge/downloads"
         extra_mounts:
             -   src: ~
                 dest: ~
