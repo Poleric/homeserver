@@ -8,6 +8,11 @@
 
 {% if homer.enabled %}
 {{ homer.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{% if homer.proxy.local %}
+    @denied not remote_ip private_ranges
+    abort @denied
+{% endif %}
+
     tls internal
 
     encode zstd gzip
@@ -18,6 +23,10 @@
 
 {% if pihole.enabled %}
 {{ pihole.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{% if pihole.proxy.local %}
+    @denied not remote_ip private_ranges
+    abort @denied
+{% endif %}
     tls internal
 
     encode zstd gzip
@@ -28,6 +37,10 @@
 
 {% if vaultwarden.enabled %}
 {{ vaultwarden.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{% if vaultwarden.proxy.local %}
+    @denied not remote_ip private_ranges
+    abort @denied
+{% endif %}
     tls internal
 
     encode zstd gzip

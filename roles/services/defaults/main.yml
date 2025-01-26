@@ -27,24 +27,28 @@ deluge:
     work_dir: "{{ services_dir }}/deluge"
     proxy:
         hostname: "deluge"
+        local: true
 
 homer:
     enabled: false
     work_dir: "{{ services_dir }}/homer"
     proxy:
         hostname: "homer"
+        local: true
 
 jellyfin:
     enabled: false
     work_dir: "{{ services_dir }}/jellyfin"
     proxy:
         hostname: "jellyfin"
+        local: true
 
 pihole:
     enabled: false
     work_dir: "{{ services_dir }}/pihole"
     proxy:
         hostname: "pihole"
+        local: true
 
     timezone: "Etc/UTC"
     password: <password>
@@ -79,4 +83,5 @@ vaultwarden:
     work_dir: "{{ services_dir }}/vaultwarden"
     proxy:
         hostname: "vaultwarden"
+        local: true
 
