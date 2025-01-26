@@ -1,0 +1,26 @@
+services:
+    samba:
+        image: "{{ samba.image.name }}:{{ samba.docker.image.version }}"
+        container_name: "{{ samba.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+{% for user in samba.config.users %}
+            ACCOUNT_{{ user.username }}: {{ user.password }}
+            UID_{{ user.username }}: {{ user.uid }}
+            GID_{{ user.username }}: {{ user.gid }}
+{% endfor %}
+{% for share in samba.config.shares %}
+            SAMBA_VOLUME_CONFIG_{{ share.name }}: |
+                [{{ share.name }}]
+{% for key, value in share.config.items() %}
+                {{ key }} = {{ value }}
+{% endfor %}
+{% endfor %}
+        volumes:
+{% for mount in samba.config.extra_mounts %}
+            - "{{ mount.src }}:{{ mount.dest }}"
+{% endfor %}
+        ports:
+            - "445:445"
+        cap_add:
+            - CAP_NET_ADMIN

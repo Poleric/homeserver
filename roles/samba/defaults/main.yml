@@ -1,0 +1,42 @@
+samba:
+    enabled: false
+
+    docker:
+        container:
+            name: "samba"
+        image:
+            name: "ghcr.io/servercontainers/samba"
+            version: "latest"
+
+    config:
+        directory: "{{ root.config.directory }}/samba"
+
+        users:
+            -   username: ~
+                password: ~
+                uid: 1000
+                gid: 1000
+        shares:
+            -   name: ~
+                config: # key and value will be used for samba config
+                    path: ~
+                    available: "yes"
+                    browsable: "yes"
+                    writable: "yes"
+                    "read only": "no"
+                    "valid users": ~
+                    public: "no"
+                    "guest ok": "no"
+                #  The above configuration would result in the following config
+                #  [name]
+                #  path = /shares
+                #  available = yes
+                #  browsable = yes
+                #  writable = yes
+                #  read only = no
+                #  valid users = <username>
+                #  public = no
+                #  guest ok = no
+        extra_mounts:
+            -   src: ~
+                dest: ~
