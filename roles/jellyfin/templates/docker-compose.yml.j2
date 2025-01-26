@@ -1,0 +1,30 @@
+services:
+    jellyfin:
+        image: "{{ jellyfin.image.name }}:{{ jellyfin.docker.image.version }}"
+        container_name: "{{ jellyfin.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+            TZ: "{{ root.timezone }}"
+            PUID: "{{ root.uid }}"
+            PGID: "{{ root.gid }}"
+        volumes:
+            - ./config:/config
+            - "{{ root.config.movies.directory }}:/movies:{{ root.config.movies.permissions }}"
+            - "{{ root.config.music.directory }}:/music:{{ root.config.music.permissions }}"
+            - "{{ root.config.photos.directory }}:/photos:{{ root.config.photos.permissions }}"
+            - "{{ root.config.tv.directory }}:/tv:{{ root.config.tv.permissions }}"
+            - "{{ root.config.books.directory }}:/books:{{ root.config.books.permissions }}"
+            - "{{ root.config.audiobooks.directory }}:/audiobooks:{{ root.config.audiobooks.permissions }}"
+        networks:
+            - reverse-proxy
+        labels:
+            caddy: "{{ jellyfin.proxy.domain }}"
+{%  if jellyfin.proxy.local_only %}
+            caddy.@denied.not: "remote_ip private_ranges"
+            caddy.abort: "@denied"
+{% endif %}
+            caddy.reverse_proxy: "{{ '{{' }} upstreams {{ jellyfin.proxy.port }} {{ '}}' }}"
+
+networks:
+    reverse-proxy:
+        external: true

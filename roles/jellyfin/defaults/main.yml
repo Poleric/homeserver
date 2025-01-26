@@ -1,0 +1,17 @@
+jellyfin:
+    enabled: false
+
+    docker:
+        container:
+            name: "jellyfin"
+        image:
+            name: "jellyfin/jellyfin"
+            version: "latest"
+
+    proxy:
+        domain: "jellyfin.{{ root.proxy.domain }}"
+        port: 8096
+        local_only: true
+
+    config:
+        directory: "{{ root.config.directory }}/jellyfin"

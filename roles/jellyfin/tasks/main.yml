@@ -1,0 +1,26 @@
+-   name: Create Jellyfin directories
+    ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+    with_items:
+        - "{{ jellyfin.config.directory }}"
+
+-   name: Copy Jellyfin docker-compose template
+    ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ jellyfin.config.directory }}/docker-compose.yml"
+    notify: Restart Jellyfin
+    when: jellyfin.enabled
+
+-   name: Ensure Jellyfin is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ jellyfin.config.directory }}/"
+        build: never
+    when: jellyfin.enabled
+
+-   name: Stop Jellyfin
+    community.docker.docker_compose_v2:
+        project_src: "{{ jellyfin.config.directory }}/"
+        build: never
+        state: absent
+    when: not jellyfin.enabled
