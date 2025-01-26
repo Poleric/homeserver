@@ -21,7 +21,7 @@ services:
             caddy.@denied.not: "remote_ip private_ranges"
             caddy.abort: "@denied"
 {% endif %}
-            caddy.reverse_proxy: {% raw %} "{{ upstreams 8112 }}" {% endraw %}
+            caddy.reverse_proxy: "{{ '{{' }} upstreams {{ deluge.proxy.port }} {{ '}}' }}"
 
 networks:
     reverse-proxy:

@@ -10,6 +10,7 @@ deluge:
 
     proxy:
         domain: "deluge.{{ root.proxy.domain }}"
+        port: 8112
         local_only: true
 
     config:
