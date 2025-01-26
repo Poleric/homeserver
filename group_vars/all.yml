@@ -78,6 +78,13 @@ deluge:
             -   src: ~
                 dest: ~
 
+homepage:
+    enabled: false
+
+    proxy:
+        hostname: "homepage"
+        local_only: true  # is a bad idea to set to false
+
 jellyfin:
     enabled: false
 

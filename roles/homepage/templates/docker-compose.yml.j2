@@ -1,0 +1,24 @@
+services:
+    homepage:
+        image: "{{ homepage.image.name }}:{{ homepage.docker.image.version }}"
+        container_name: "{{ homepage.docker.container.name }}"
+        restart: unless-stopped
+        environment:
+            PUID: {{ root.uid }}
+            PGID: {{ root.gid }}
+        volumes:
+            - ./config:/app/config
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+        networks:
+            - reverse-proxy
+        labels:
+            caddy: "{{ homepage.proxy.hostname }}.{{ root.proxy.domain }}"
+{%  if homepage.proxy.local_only %}
+            caddy.@denied.not: "remote_ip private_ranges"
+            caddy.abort: "@denied"
+{% endif %}
+            caddy.reverse_proxy: "{{ '{{' }} upstreams {{ homepage.proxy.port }} {{ '}}' }}"
+
+networks:
+    reverse-proxy:
+        external: true

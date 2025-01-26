@@ -1,0 +1,17 @@
+homepage:
+    enabled: false
+
+    docker:
+        container:
+            name: "homepage"
+        image:
+            name: "ghcr.io/gethomepage/homepage"
+            version: "latest"
+
+    proxy:
+        hostname: "homepage"
+        port: 3000
+        local_only: true  # is a bad idea to set to false
+
+    config:
+        directory: "{{ root.config.directory }}/homepage"

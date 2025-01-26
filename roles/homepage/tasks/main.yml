@@ -1,0 +1,29 @@
+-   name: Start Homepage
+    block:
+        -   name: Create Homepage directories
+            ansible.builtin.file:
+                path: "{{ item }}"
+                state: directory
+            with_items:
+                - "{{ homepage.config.directory }}"
+
+        -   name: Copy Homepage docker-compose template
+            ansible.builtin.template:
+                src: templates/docker-compose.yml.j2
+                dest: "{{ homepage.config.directory }}/docker-compose.yml"
+            notify: Restart Homepage
+
+        -   name: Ensure Homepage is running
+            community.docker.docker_compose_v2:
+                project_src: "{{ homepage.config.directory }}/"
+                build: never
+    when: homepage.enabled
+
+-   name: Stop Homepage
+    block:
+        -   name: Stop Homepage
+            community.docker.docker_compose_v2:
+                project_src: "{{ homepage.config.directory }}/"
+                build: never
+                state: absent
+    when: not homepage.enabled
