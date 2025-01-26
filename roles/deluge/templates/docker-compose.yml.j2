@@ -16,7 +16,7 @@ services:
         networks:
             - reverse-proxy
         labels:
-            caddy: "{{ deluge.proxy.domain }}"
+            caddy: "{{ deluge.proxy.hostname }}.{{ root.proxy.domain }}"
 {%  if deluge.proxy.local_only %}
             caddy.@denied.not: "remote_ip private_ranges"
             caddy.abort: "@denied"

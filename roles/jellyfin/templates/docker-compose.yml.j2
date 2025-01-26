@@ -18,7 +18,7 @@ services:
         networks:
             - reverse-proxy
         labels:
-            caddy: "{{ jellyfin.proxy.domain }}"
+            caddy: "{{ jellyfin.proxy.hostname }}.{{ root.proxy.domain }}"
 {%  if jellyfin.proxy.local_only %}
             caddy.@denied.not: "remote_ip private_ranges"
             caddy.abort: "@denied"

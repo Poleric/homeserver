@@ -9,7 +9,7 @@ jellyfin:
             version: "latest"
 
     proxy:
-        domain: "jellyfin.{{ root.proxy.domain }}"
+        hostname: "jellyfin"
         port: 8096
         local_only: true
 

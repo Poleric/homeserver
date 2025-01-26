@@ -9,7 +9,7 @@ deluge:
             version: "latest"
 
     proxy:
-        domain: "deluge.{{ root.proxy.domain }}"
+        hostname: "deluge"
         port: 8112
         local_only: true
 
