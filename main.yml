@@ -8,4 +8,10 @@
         - geerlingguy.git
         - geerlingguy.pip
         - geerlingguy.docker
-        - services
+        - caddy
+        - ddclient
+        - deluge
+        - jellyfin
+        - pihole
+        - samba
+        - vaultwarden
