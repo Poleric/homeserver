@@ -9,14 +9,14 @@ Repo holds the Ansible configuration for deploying and running the services.
 
 All of the services are dockerized.
 
-- [x] [Pi-hole](https://pi-hole.net/) - Ad blocking and custom DNS
-- [x] [Samba](https://www.samba.org/) - File sharing
-- [x] [ddclient](https://ddclient.net/) - IP updates
-- [x] [Caddy](https://caddyserver.com/) - Reverse proxy
-- [ ] [Deluge](https://deluge-torrent.org/) - BitTorrent client
-- [ ] [Jellyfin](https://jellyfin.org/) - Media server
-- [x] [Vaultwarden](https://github.com/dani-garcia/vaultwarden) - Password manager
-- [x] [Homer](https://github.com/bastienwirtz/homer) - Home server homepage
+- [Pi-hole](https://pi-hole.net/) - Ad blocking and custom DNS
+- [Samba](https://www.samba.org/) - File sharing
+- [ddclient](https://ddclient.net/) - IP updates
+- [Caddy](https://caddyserver.com/) - Reverse proxy
+- [Deluge](https://deluge-torrent.org/) - BitTorrent client
+- [Jellyfin](https://jellyfin.org/) - Media server
+- [Vaultwarden](https://github.com/dani-garcia/vaultwarden) - Password manager
+- [Homer](https://github.com/bastienwirtz/homer) - Home server homepage
 
 ## Setup
 
