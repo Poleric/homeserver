@@ -35,6 +35,10 @@ deluge:
     timezone: "{{ timezone }}"
     download_directory: "/home/{{ ansible_user }}/Downloads"
 
+    mount:
+        -   src: ~
+            dst: ~
+
 homer:
     enabled: false
     work_dir: "{{ services_dir }}/homer"

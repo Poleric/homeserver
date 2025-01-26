@@ -10,6 +10,9 @@ services:
         volumes:
             - ./config:/config
             - "{{ deluge.download_directory }}:/downloads"
+{% for mount in deluge.mount %}
+            - "{{ mount.src }}:{{ mount.dst }}"
+{% endfor %}
         networks:
             - reverse-proxy
 
