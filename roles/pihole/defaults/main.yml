@@ -1,0 +1,19 @@
+pihole:
+    enabled: false
+
+    docker:
+        container:
+            name: "pihole"
+        image:
+            name: "pihole/pihole"
+            version: "latest"
+
+    proxy:
+        hostname: "pihole"
+        port: 80
+        local_only: true
+
+    config:
+        directory: "{{ root.config.directory }}/pihole"
+
+        password: ~

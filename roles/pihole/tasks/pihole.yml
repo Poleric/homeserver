@@ -1,0 +1,26 @@
+-   name: Create Pi-hole directories
+    ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+    with_items:
+        - "{{ pihole.config.directory }}"
+
+-   name: Copy Pi-hole docker-compose template
+    ansible.builtin.template:
+        src: templates/docker-compose.yml.j2
+        dest: "{{ pihole.config.directory }}/docker-compose.yml"
+    notify: Restart Pi-hole
+    when: pihole.enabled
+
+-   name: Ensure Pi-hole is running
+    community.docker.docker_compose_v2:
+        project_src: "{{ pihole.config.directory }}/"
+        build: never
+    when: pihole.enabled
+
+-   name: Stop Pi-hole
+    community.docker.docker_compose_v2:
+        project_src: "{{ pihole.config.directory }}/"
+        build: never
+        state: absent
+    when: not pihole.enabled
