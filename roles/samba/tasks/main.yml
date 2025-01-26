@@ -1,26 +1,29 @@
--   name: Create Samba directories
-    ansible.builtin.file:
-        path: "{{ item }}"
-        state: directory
-    with_items:
-        - "{{ samba.config.directory }}"
+-   name: Start Samba
+    block:
+        -   name: Create Samba directories
+            ansible.builtin.file:
+                path: "{{ item }}"
+                state: directory
+            with_items:
+                - "{{ samba.config.directory }}"
 
--   name: Copy Samba docker-compose template
-    ansible.builtin.template:
-        src: templates/docker-compose.yml.j2
-        dest: "{{ samba.config.directory }}/docker-compose.yml"
-    notify: Restart Samba
-    when: samba.enabled
+        -   name: Copy Samba docker-compose template
+            ansible.builtin.template:
+                src: templates/docker-compose.yml.j2
+                dest: "{{ samba.config.directory }}/docker-compose.yml"
+            notify: Restart Samba
 
--   name: Ensure Samba is running
-    community.docker.docker_compose_v2:
-        project_src: "{{ samba.config.directory }}/"
-        build: never
+        -   name: Ensure Samba is running
+            community.docker.docker_compose_v2:
+                project_src: "{{ samba.config.directory }}/"
+                build: never
     when: samba.enabled
 
 -   name: Stop Samba
-    community.docker.docker_compose_v2:
-        project_src: "{{ samba.config.directory }}/"
-        build: never
-        state: absent
+    block:
+        -   name: Stop Samba
+            community.docker.docker_compose_v2:
+                project_src: "{{ samba.config.directory }}/"
+                build: never
+                state: absent
     when: not samba.enabled

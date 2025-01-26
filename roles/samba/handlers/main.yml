@@ -3,4 +3,3 @@
         project_src: "{{ samba.config.directory }}/"
         build: never
         state: restarted
-    when: samba.enabled

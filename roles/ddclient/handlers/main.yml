@@ -3,4 +3,3 @@
         project_src: "{{ ddclient.config.directory }}/"
         build: never
         state: restarted
-    when: ddclient.enabled

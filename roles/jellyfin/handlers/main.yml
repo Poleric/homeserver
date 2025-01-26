@@ -3,4 +3,3 @@
         project_src: "{{ jellyfin.config.directory }}/"
         build: never
         state: restarted
-    when: jellyfin.enabled

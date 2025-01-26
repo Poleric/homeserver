@@ -3,4 +3,3 @@
         project_src: "{{ vaultwarden.config.directory }}/"
         build: never
         state: restarted
-    when: vaultwarden.enabled

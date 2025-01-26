@@ -1,26 +1,29 @@
--   name: Create Vaultwarden directories
-    ansible.builtin.file:
-        path: "{{ item }}"
-        state: directory
-    with_items:
-        - "{{ vaultwarden.config.directory }}"
+-   name: Start Vaultwarden
+    block:
+        -   name: Create Vaultwarden directories
+            ansible.builtin.file:
+                path: "{{ item }}"
+                state: directory
+            with_items:
+                - "{{ vaultwarden.config.directory }}"
 
--   name: Copy Vaultwarden docker-compose template
-    ansible.builtin.template:
-        src: templates/docker-compose.yml.j2
-        dest: "{{ vaultwarden.config.directory }}/docker-compose.yml"
-    notify: Restart Vaultwarden
-    when: vaultwarden.enabled
+        -   name: Copy Vaultwarden docker-compose template
+            ansible.builtin.template:
+                src: templates/docker-compose.yml.j2
+                dest: "{{ vaultwarden.config.directory }}/docker-compose.yml"
+            notify: Restart Vaultwarden
 
--   name: Ensure Vaultwarden is running
-    community.docker.docker_compose_v2:
-        project_src: "{{ vaultwarden.config.directory }}/"
-        build: never
+        -   name: Ensure Vaultwarden is running
+            community.docker.docker_compose_v2:
+                project_src: "{{ vaultwarden.config.directory }}/"
+                build: never
     when: vaultwarden.enabled
 
 -   name: Stop Vaultwarden
-    community.docker.docker_compose_v2:
-        project_src: "{{ vaultwarden.config.directory }}/"
-        build: never
-        state: absent
+    block:
+        -   name: Stop Vaultwarden
+            community.docker.docker_compose_v2:
+                project_src: "{{ vaultwarden.config.directory }}/"
+                build: never
+                state: absent
     when: not vaultwarden.enabled

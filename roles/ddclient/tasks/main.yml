@@ -1,31 +1,35 @@
--   name: Create ddclient directories
-    ansible.builtin.file:
-        path: "{{ item }}"
-        state: directory
-    with_items:
-        - "{{ ddclient.config.directory }}"
+-   name: Start ddclient
+    block:
+        -   name: Create ddclient directories
+            ansible.builtin.file:
+                path: "{{ item }}"
+                state: directory
+            with_items:
+                - "{{ ddclient.config.directory }}"
 
--   name: Copy ddclient.conf template
-    ansible.builtin.template:
-        src: templates/ddclient.conf.j2
-        dest: "{{ ddclient.config.directory }}/ddclient.conf"
-    notify: Restart ddclient
+        -   name: Copy ddclient.conf template
+            ansible.builtin.template:
+                src: templates/ddclient.conf.j2
+                dest: "{{ ddclient.config.directory }}/ddclient.conf"
+            notify: Restart ddclient
 
--   name: Copy ddclient docker-compose template
-    ansible.builtin.template:
-        src: templates/docker-compose.yml.j2
-        dest: "{{ ddclient.config.directory }}/docker-compose.yml"
-    notify: Restart ddclient
+        -   name: Copy ddclient docker-compose template
+            ansible.builtin.template:
+                src: templates/docker-compose.yml.j2
+                dest: "{{ ddclient.config.directory }}/docker-compose.yml"
+            notify: Restart ddclient
 
--   name: Ensure ddclient is running
-    community.docker.docker_compose_v2:
-        project_src: "{{ ddclient.config.directory }}/"
-        build: never
+        -   name: Ensure ddclient is running
+            community.docker.docker_compose_v2:
+                project_src: "{{ ddclient.config.directory }}/"
+                build: never
     when: ddclient.enabled
 
 -   name: Stop ddclient
-    community.docker.docker_compose_v2:
-        project_src: "{{ ddclient.config.directory }}/"
-        build: never
-        state: absent
+    block:
+        -   name: Stop ddclient
+            community.docker.docker_compose_v2:
+                project_src: "{{ ddclient.config.directory }}/"
+                build: never
+                state: absent
     when: not ddclient.enabled

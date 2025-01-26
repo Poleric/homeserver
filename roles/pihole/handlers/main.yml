@@ -3,4 +3,3 @@
         project_src: "{{ pihole.config.directory }}/"
         build: never
         state: restarted
-    when: pihole.enabled
