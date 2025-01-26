@@ -23,6 +23,9 @@ services:
 {% if "." in reverse_proxy.domain.name %}
             - "{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
 {% endif %}
+{% if deluge.enabled %}
+            - "{{ deluge.proxy.hostname }}.{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
+{% endif %}
 {% if homer.enabled %}
             - "{{ homer.proxy.hostname }}.{{ reverse_proxy.domain.name }}:{{ ansible_facts.default_ipv4.address }}"
 {% endif %}

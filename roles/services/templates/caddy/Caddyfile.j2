@@ -6,6 +6,21 @@
     }
 }
 
+{% if deluge.enabled %}
+{{ deluge.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
+{% if deluge.proxy.local %}
+    @denied not remote_ip private_ranges
+    abort @denied
+{% endif %}
+
+    tls internal
+
+    encode zstd gzip
+
+    reverse_proxy deluge:8112
+}
+{% endif %}
+
 {% if homer.enabled %}
 {{ homer.proxy.hostname }}.{{ reverse_proxy.domain.name }} {
 {% if homer.proxy.local %}
