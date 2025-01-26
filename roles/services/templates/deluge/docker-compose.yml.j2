@@ -1,0 +1,18 @@
+services:
+    deluge:
+        image: lscr.io/linuxserver/deluge:latest
+        container_name: deluge
+        restart: unless-stopped
+        environment:
+            PUID: "{{ deluge.uid }}"
+            PGID: "{{ deluge.gid }}"
+            TZ: "{{ deluge.timezone }}"
+        volumes:
+            - ./config:/config
+            - "{{ deluge.download_directory }}:/downloads"
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true

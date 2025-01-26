@@ -12,6 +12,13 @@
         state: restarted
     become: false
 
+-   name: Restart Deluge
+    community.docker.docker_compose_v2:
+        project_src: "{{ deluge.work_dir }}/"
+        build: never
+        state: restarted
+    become: false
+
 -   name: Restart Homer
     community.docker.docker_compose_v2:
         project_src: "{{ homer.work_dir }}/"

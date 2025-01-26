@@ -1,5 +1,6 @@
 work_dir: "~"
 services_dir: "{{ work_dir }}/services"
+timezone: "Etc/UTC"
 
 reverse_proxy:
     work_dir: "{{ services_dir }}/caddy"
@@ -12,7 +13,7 @@ ddclient:
 
     uid: 1000
     gid: 1000
-    timezone: "Etc/UTC"
+    timezone: "{{ timezone }}"
     protocols:
         -   type: "cloudflare"
             params:
@@ -28,6 +29,11 @@ deluge:
     proxy:
         hostname: "deluge"
         local: true
+
+    uid: 1000
+    gid: 1000
+    timezone: "{{ timezone }}"
+    download_directory: "/home/{{ ansible_user }}/Downloads"
 
 homer:
     enabled: false
@@ -50,7 +56,7 @@ pihole:
         hostname: "pihole"
         local: true
 
-    timezone: "Etc/UTC"
+    timezone: "{{ timezone }}"
     password: <password>
 
 samba:
