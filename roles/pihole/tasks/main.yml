@@ -28,4 +28,5 @@
                 project_src: "{{ pihole.config.directory }}/"
                 build: never
                 state: absent
+            ignore_errors: true
     when: not pihole.enabled

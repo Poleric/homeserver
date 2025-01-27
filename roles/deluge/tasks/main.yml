@@ -26,4 +26,5 @@
                 project_src: "{{ deluge.config.directory }}/"
                 build: never
                 state: absent
+            ignore_errors: true
     when: not deluge.enabled

@@ -32,4 +32,5 @@
                 project_src: "{{ ddclient.config.directory }}/"
                 build: never
                 state: absent
+            ignore_errors: true
     when: not ddclient.enabled

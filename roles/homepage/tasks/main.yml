@@ -34,4 +34,5 @@
                 project_src: "{{ homepage.config.directory }}/"
                 build: never
                 state: absent
+            ignore_errors: true
     when: not homepage.enabled
