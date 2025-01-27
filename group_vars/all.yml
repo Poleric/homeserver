@@ -1,6 +1,6 @@
 root:
-    uid: 1000
-    gid: 1000
+    uid: 0
+    gid: 0
 
     email: email@example.com
     timezone: "Etc/UTC"
