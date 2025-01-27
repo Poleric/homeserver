@@ -4,7 +4,7 @@ root:
 
     email: email@example.com
     timezone: "Etc/UTC"
-    locale: "en_US"
+    locale: "en"
 
     proxy:
         domain: "home.local"
