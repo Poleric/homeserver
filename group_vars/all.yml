@@ -53,7 +53,7 @@ ddclient:
         #  https://ddclient.net/protocols.html
         protocols:
             -   protocol: cloudflare
-                params:  # params key and values are directly added into the protocol config
+                params: # params key and values are directly added into the protocol config
                     zone: example.tld
                     ttl: 1
                     password: ~
@@ -75,7 +75,7 @@ deluge:
         local_only: true
 
     config:
-        extra_mounts:  # extra mounts for use in accessing and downloading to local storage
+        extra_mounts: # extra mounts for use in accessing and downloading to local storage
             -   src: ~
                 dest: ~
 
@@ -87,18 +87,32 @@ homepage:
         local_only: true  # is a bad idea to set to false
 
     config:
-        settings:  # Settings config as https://gethomepage.dev/configs/settings/#title
+        settings: # Settings config as https://gethomepage.dev/configs/settings/#title
             title: "Homeserver"
             language: "{{ root.locale }}"
             showStats: true
 
-        bookmarks:
-            ~
-
         services:
-            ~
+            -   Networking:
+                    -   Router:
+                            icon: Local Router
+                            href: http://192.168.0.1/
+                            description: Router Homepage
 
         widgets:
+            -   search:
+                    provider: google # google, duckduckgo, bing, baidu, brave or custom
+                    focus: true # Optional, will set focus to the search bar on page load
+                    target: _blank # One of _self, _blank, _parent or _top
+            -   resources:
+                    cpu: true
+                    memory: true
+                    cputemp: true
+                    uptime: true
+                    units: metric # only used by cpu temp
+                    refresh: 60000 # optional, in ms
+
+        bookmarks:
             ~
 
 jellyfin:
