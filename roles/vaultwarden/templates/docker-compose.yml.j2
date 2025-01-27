@@ -18,7 +18,7 @@ services:
             caddy.abort: "@denied"
 {% endif %}
             caddy.0_reverse_proxy: "/notifications/hub/negotiate {{ '{{' }} upstreams {{ vaultwarden.proxy.port }} {{ '}}' }}"
-            caddy.1_reverse_proxy: {% raw %} "/notifications/hub {{ upstreams 3012 }}" {% endraw %}
+            caddy.1_reverse_proxy: {{ "/notifications/hub {{ upstreams 3012 }}" }}
             caddy.2_reverse_proxy: "{{ '{{' }} upstreams {{ vaultwarden.proxy.port }} {{ '}}' }}"
             homepage.group: Services
             homepage.name: Bitwarden
