@@ -1,6 +1,6 @@
 services:
     pihole:
-        image: "{{ pihole.image.name }}:{{ pihole.docker.image.version }}"
+        image: "{{ pihole.docker.image.name }}:{{ pihole.docker.image.version }}"
         container_name: "{{ pihole.docker.container.name }}"
         restart: unless-stopped
         ports:

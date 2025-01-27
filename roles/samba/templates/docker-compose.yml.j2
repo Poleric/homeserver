@@ -1,6 +1,6 @@
 services:
     samba:
-        image: "{{ samba.image.name }}:{{ samba.docker.image.version }}"
+        image: "{{ samba.docker.image.name }}:{{ samba.docker.image.version }}"
         container_name: "{{ samba.docker.container.name }}"
         restart: unless-stopped
         environment:

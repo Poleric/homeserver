@@ -1,6 +1,6 @@
 services:
     deluge:
-        image: "{{ deluge.image.name }}:{{ deluge.docker.image.version }}"
+        image: "{{ deluge.docker.image.name }}:{{ deluge.docker.image.version }}"
         container_name: "{{ deluge.docker.container.name }}"
         restart: unless-stopped
         environment:

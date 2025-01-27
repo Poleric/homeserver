@@ -1,6 +1,6 @@
 services:
     jellyfin:
-        image: "{{ jellyfin.image.name }}:{{ jellyfin.docker.image.version }}"
+        image: "{{ jellyfin.docker.image.name }}:{{ jellyfin.docker.image.version }}"
         container_name: "{{ jellyfin.docker.container.name }}"
         restart: unless-stopped
         environment:

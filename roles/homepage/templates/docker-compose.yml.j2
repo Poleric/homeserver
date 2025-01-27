@@ -1,6 +1,6 @@
 services:
     homepage:
-        image: "{{ homepage.image.name }}:{{ homepage.docker.image.version }}"
+        image: "{{ homepage.docker.image.name }}:{{ homepage.docker.image.version }}"
         container_name: "{{ homepage.docker.container.name }}"
         restart: unless-stopped
         environment:

@@ -1,6 +1,6 @@
 services:
     vaultwarden:
-        image: "{{ vaultwarden.image.name }}:{{ vaultwarden.docker.image.version }}"
+        image: "{{ vaultwarden.docker.image.name }}:{{ vaultwarden.docker.image.version }}"
         container_name: "{{ vaultwarden.docker.container.name }}"
         restart: unless-stopped
         environment:

@@ -2,7 +2,7 @@ daemon={{ ddclient.config.poll_seconds }}
 usev4=webv4, webv4=ipv4.icanhazip.com
 
 # Protocols
-{% for protocol in ddclient.protocols %}
+{% for protocol in ddclient.config.protocols %}
 protocol={{ protocol.protocol }}
 {% for key, value in protocol.params.items() %}
 {{ key }}={{ value }}
