@@ -17,6 +17,11 @@ services:
         labels:
             caddy.email: "{{ root.email }}"
             caddy.acme_dns: "cloudflare {{ caddy.config.cloudflare_token }}"
+            homepage.group: Networking
+            homepage.name: Caddy
+            homepage.icon: caddy.png
+            homepage.href: "https://{{ root.proxy.domain }}"
+            homepage.description: Reverse proxy
             homepage.widget.type: caddy
             homepage.widget.url: "https://{{ root.proxy.domain }}"
 
