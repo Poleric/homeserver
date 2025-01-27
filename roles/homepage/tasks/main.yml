@@ -6,13 +6,13 @@
                 state: directory
             with_items:
                 - "{{ homepage.config.directory }}"
+                - "{{ homepage.config.directory }}/config"
 
         -   name: Copy Homepage config templates
             ansible.builtin.template:
-                src: "{{ item }}"
-                dest: "{{ homepage.config.directory }}/config/{{ item.path | basename | trim('.j2') }}"
-            with_fileglob:
-                - "templates/config/*.yml.j2"
+                src: "{{ item.src }}"
+                dest: "{{ homepage.config.directory }}/config/{{ item.path | replace('.j2', '') }}"
+            with_filetree: templates/config
             notify: Restart Homepage
 
         -   name: Copy Homepage docker-compose template
