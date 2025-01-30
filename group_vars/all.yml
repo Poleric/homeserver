@@ -175,3 +175,18 @@ vaultwarden:
 
     config:
         signup_allowed: true
+
+wireguard:
+    enabled: false
+
+    proxy:
+        web:
+            hostname: "wg"
+            port: 51821
+            local_only: true
+        vpn: # not actually proxied
+            hostname: "vpn"  # the public facing hostname + domain name
+            port: 51820
+
+    config:
+        web_password: ~
