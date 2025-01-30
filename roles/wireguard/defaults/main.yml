@@ -1,0 +1,23 @@
+wireguard:
+    enabled: false
+
+    docker:
+        container:
+            name: "wireguard"
+        image:
+            name: "ghcr.io/wg-easy/wg-easy"
+            version: "latest"
+
+    proxy:
+        web:
+            hostname: "wg"
+            port: 51821
+            local_only: true
+        vpn:  # not actually proxied
+            hostname: "vpn"  # the public facing hostname + domain name
+            port: 51820
+
+    config:
+        directory: "{{ root.config.directory }}/wireguard"
+
+        web_password: ~

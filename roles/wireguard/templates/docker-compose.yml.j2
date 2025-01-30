@@ -1,0 +1,54 @@
+services:
+    wireguard:
+        image: "{{ wireguard.docker.image.name }}:{{ wireguard.docker.image.version }}"
+        container_name: "{{ wireguard.docker.container.name }}"
+        restart: unless-stopped
+        ports:
+            - "{{ wireguard.proxy.vpn.port }}:51820/udp"
+        environment:
+            PORT: {{ wireguard.proxy.web.port }}
+            LANG: "{{ root.locale }}"
+            PASSWORD_HASH: "{{ wireguard.config.web_password | mandatory | password_hash('bcrypt') | replace('$', '$$') }}"
+
+            WG_HOST: "{{ wireguard.proxy.vpn.hostname }}.{{ root.proxy.domain }}"
+            WG_DEFAULT_ADDRESS: 10.8.0.x
+{% if pihole.enabled %}
+            WG_DEFAULT_DNS: 10.8.1.3
+{% endif %}
+            UI_TRAFFIC_STATS: true
+        volumes:
+            - ./wireguard:/etc/wireguard
+        cap_add:
+            - NET_ADMIN
+            - SYS_MODULE
+        sysctls:
+            - net.ipv4.ip_forward=1
+            - net.ipv4.conf.all.src_valid_mark=1
+        networks:
+            reverse-proxy:
+            default:
+                ipv4_address: 10.8.1.2
+        labels:
+            caddy: "{{ wireguard.proxy.web.hostname }}.{{ root.proxy.domain }}"
+{%  if wireguard.proxy.web.local_only %}
+            caddy.@denied.not: "remote_ip private_ranges"
+            caddy.abort: "@denied"
+{% endif %}
+            caddy.reverse_proxy: "{{ '{{' }} upstreams {{ wireguard.proxy.web.port }} {{ '}}' }}"
+            homepage.group: Networking
+            homepage.name: Wireguard
+            homepage.icon: wireguard.png
+            homepage.href: "https://{{ wireguard.proxy.web.hostname }}.{{ root.proxy.domain }}"
+            homepage.description: VPN Server
+            homepage.widget.type: wgeasy
+            homepage.widget.url: "https://{{ wireguard.proxy.web.hostname }}.{{ root.proxy.domain }}"
+            homepage.widget.password: "{{ wireguard.config.web_password }}"
+
+networks:
+    default:
+        name: wireguard
+        ipam:
+            config:
+                -   subnet: 10.8.1.0/24
+    reverse-proxy:
+        external: true

@@ -1,0 +1,30 @@
+-   name: Start Wireguard
+    block:
+        -   name: Create Wireguard directories
+            ansible.builtin.file:
+                path: "{{ item }}"
+                state: directory
+            with_items:
+                - "{{ wireguard.config.directory }}"
+
+        -   name: Copy Wireguard docker-compose template
+            ansible.builtin.template:
+                src: templates/docker-compose.yml.j2
+                dest: "{{ wireguard.config.directory }}/docker-compose.yml"
+            notify: Restart Wireguard
+
+        -   name: Ensure Wireguard is running
+            community.docker.docker_compose_v2:
+                project_src: "{{ wireguard.config.directory }}/"
+                build: never
+    when: wireguard.enabled
+
+-   name: Stop Wireguard
+    block:
+        -   name: Stop Wireguard
+            community.docker.docker_compose_v2:
+                project_src: "{{ wireguard.config.directory }}/"
+                build: never
+                state: absent
+            ignore_errors: true
+    when: not wireguard.enabled

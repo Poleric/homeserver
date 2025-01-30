@@ -29,7 +29,11 @@ services:
 {% endif %}
 {% endfor %}
         networks:
-            - reverse-proxy
+            reverse-proxy:
+{% if wireguard.enabled %}
+            wireguard:
+                ipv4_address: 10.8.1.3
+{% endif %}
         labels:
             caddy: "{{ pihole.proxy.hostname }}.{{ root.proxy.domain }}"
 {%  if pihole.proxy.local_only %}
@@ -48,3 +52,7 @@ services:
 networks:
     reverse-proxy:
         external: true
+{% if wireguard.enabled %}
+    wireguard:
+        external: true
+{% endif %}
