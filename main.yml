@@ -8,7 +8,10 @@
         - geerlingguy.git
         - geerlingguy.pip
         - geerlingguy.docker
+
         - caddy
+        - wireguard
+
         - ddclient
         - deluge
         - homepage
