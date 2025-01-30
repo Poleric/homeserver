@@ -16,13 +16,14 @@ All of the services are dockerized.
 - [Deluge](https://deluge-torrent.org/) - BitTorrent client
 - [Jellyfin](https://jellyfin.org/) - Media server
 - [Vaultwarden](https://github.com/dani-garcia/vaultwarden) - Password manager
-- [Homer](https://github.com/bastienwirtz/homer) - Home server homepage
+- [Homepage](https://gethomepage.dev/) - Home server homepage
+- [Wireguard + wg-easy](https://github.com/wg-easy/wg-easy) - VPN Server + GUI
 
 ## Setup
 
-1. Install Ansible.
+1. Install Ansible and requirements.
    ```bash
-   pip install ansible
+   pip install -r requirements.txt
    ```
    
 2. Install requirements.
@@ -30,12 +31,13 @@ All of the services are dockerized.
    ansible-galaxy install -r requirements.yml
    ```
    
-3. Configure the variables in `./group_vars/all` and `./inventory/production.yml`.
+3. Configure the variables in `./group_vars/all` and `./inventory`.
 
-   > Read [group_vars/README.md](group_vars/README.md) and [inventory/README.md](inventory/README.md) for documentation
-   on the usage and description of each of the variables.
+   > ~~Read [group_vars/README.md](group_vars/README.md) and [inventory/README.md](inventory/README.md) for documentation
+   on the usage and description of each of the variables.~~
+   > TODO lol.
 
 4. Run the playbook.
    ```bash
-   ansible-playbook main.yml -i inventory/production.yml
+   ansible-playbook main.yml -i inventory/<your_custom_group>/production.yml
    ```
